@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>SwiftTrack - Отслеживание посылки</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        <span class="package-icon">📦</span>
+        SwiftTrack
+    </div>
+
+</header>
+
+
+
+<main>
+
+
+    <!-- =========================
+         ПОИСК ОТПРАВЛЕНИЯ
+    ========================== -->
+
+    <section class="tracking-box">
+
+        <h1>Отследить посылку</h1>
+
+        <p>
+            Введите номер отслеживания, чтобы увидеть
+            последнюю информацию о доставке.
+        </p>
+
+
+        <input
+            type="text"
+            id="trackingInput"
+            placeholder="Введите номер отслеживания"
+        >
+
+
+        <button onclick="trackPackage()">
+            Отследить посылку
+        </button>
+
+
+        <div id="errorMessage"></div>
+
+    </section>
+
+
+
+    <!-- =========================
+         ДЕТАЛИ ПОСЫЛКИ
+    ========================== -->
+
+    <section
+        id="packageDetails"
+        class="package-details"
+    >
+
+
+        <div class="details-header">
+
+            <div>
+
+                <span class="label">
+                    НОМЕР ОТСЛЕЖИВАНИЯ
+                </span>
+
+                <h2 id="trackingNumber"></h2>
+
+            </div>
+
+
+            <span
+                id="status"
+                class="status"
+            >
+                В пути
+            </span>
+
+        </div>
+
+
+
+        <!-- ИНФОРМАЦИЯ О ПОСЫЛКЕ -->
+
+        <div class="package-info">
+
+
+            <div class="info-card">
+
+                <span>Посылка</span>
+
+                <strong id="packageName"></strong>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <span>Вес</span>
+
+                <strong id="packageWeight"></strong>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <span>Стоимость доставки</span>
+
+                <strong id="deliveryFee"></strong>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <span>Ориентировочная дата доставки</span>
+
+                <strong id="deliveryDate"></strong>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ТЕКУЩЕЕ МЕСТОПОЛОЖЕНИЕ -->
+
+        <div class="location-card">
+
+            <span>
+                📍 ТЕКУЩЕЕ МЕСТОПОЛОЖЕНИЕ
+            </span>
+
+
+            <h3 id="currentLocation"></h3>
+
+
+            <p id="latestUpdate"></p>
+
+        </div>
+
+
+
+        <!-- ПРОГРЕСС ДОСТАВКИ -->
+
+        <div class="progress-section">
+
+
+            <div class="progress-heading">
+
+                <strong>
+                    Прогресс доставки
+                </strong>
+
+
+                <span id="progressText">
+                    65%
+                </span>
+
+            </div>
+
+
+            <div class="progress-bar">
+
+                <div id="progressFill"></div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             КУРЬЕР
+        ========================== -->
+
+        <div class="agent-card">
+
+
+            <div class="agent-icon">
+                🚚
+            </div>
+
+
+            <div class="agent-information">
+
+                <h3>
+                    Курьер
+                </h3>
+
+
+                <p>
+                    Нужна помощь с доставкой?
+                    Свяжитесь напрямую с нашим курьером.
+                </p>
+
+            </div>
+
+
+            <button
+                class="contact-agent-button"
+                onclick="openContactOptions()"
+            >
+                Связаться с курьером
+            </button>
+
+
+        </div>
+
+
+
+        <!-- =========================
+             ОКНО КОНТАКТОВ
+        ========================== -->
+
+        <div
+            id="contactModal"
+            class="contact-modal"
+        >
+
+
+            <div class="contact-modal-box">
+
+
+                <button
+                    class="close-contact"
+                    onclick="closeContactOptions()"
+                >
+                    ×
+                </button>
+
+
+
+                <div class="contact-modal-icon">
+                    💬
+                </div>
+
+
+                <h2>
+                    Связаться с курьером
+                </h2>
+
+
+                <p>
+                    Выберите удобный сервис для связи.
+                </p>
+
+
+
+                <!-- ZANGI -->
+
+                <a
+                    id="zangiLink"
+                    href="https://services.zangi.com/dl/conversation/3549336473"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="contact-option zangi-option"
+                >
+
+                    <div class="messenger-icon zangi-icon">
+
+                        <!-- ZANGI ICON -->
+
+                        <svg
+                            viewBox="0 0 64 64"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+
+                            <rect
+                                width="64"
+                                height="64"
+                                rx="16"
+                                fill="#279FFB"
+                            />
+
+                            <path
+                                d="M18 17
+                                   C13 17 10 21 10 26
+                                   V38
+                                   C10 43 14 47 19 47
+                                   H29
+                                   L35 53
+                                   V47
+                                   H45
+                                   C50 47 54 43 54 38
+                                   V26
+                                   C54 21 50 17 45 17
+                                   H18Z"
+                                fill="white"
+                            />
+
+                            <path
+                                d="M23 28
+                                   C24 34 30 40 36 41
+                                   L40 37
+                                   L35 33
+                                   L32 35
+                                   C29 33 27 31 26 28
+                                   L28 25
+                                   L24 21
+                                   Z"
+                                fill="#279FFB"
+                            />
+
+                        </svg>
+
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            Связаться с нами через Zangi
+                        </strong>
+
+                        <small>
+                            Написать курьеру
+                        </small>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- TELEGRAM -->
+
+                <a
+                    id="telegramLink"
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="contact-option telegram-option"
+                >
+
+                    <div class="messenger-icon telegram-icon">
+
+                        <!-- TELEGRAM ICON -->
+
+                        <svg
+                            viewBox="0 0 64 64"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+
+                            <circle
+                                cx="32"
+                                cy="32"
+                                r="32"
+                                fill="#229ED9"
+                            />
+
+                            <path
+                                d="M46.8 17.2
+                                   L39.7 48.1
+                                   C39.2 50.3 37.9 50.8 36.1 49.8
+                                   L26.4 42.6
+                                   L21.7 47.1
+                                   C21.2 47.6 20.8 48.0 19.8 48.0
+                                   L20.5 37.9
+                                   L38.9 21.3
+                                   C39.7 20.6 38.7 20.2 37.6 20.9
+                                   L14.9 35.2
+                                   L5.1 32.1
+                                   C3 31.4 3 29.9 5.5 28.9
+                                   L43.9 14.1
+                                   C45.7 13.5 47.3 14.6 46.8 17.2Z"
+                                fill="white"
+                            />
+
+                        </svg>
+
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            Связаться с нами через Telegram
+                        </strong>
+
+                        <small>
+                            Написать курьеру
+                        </small>
+
+                    </div>
+
+                </a>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- НАЗАД -->
+
+        <button
+            class="back-button"
+            onclick="goBack()"
+        >
+            ← Отследить другую посылку
+        </button>
+
+
+    </section>
+
+
+</main>
+
+
+
+<footer>
+
+    © 2026 SwiftTrack
+
+</footer>
+
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
