@@ -6,9 +6,9 @@ const packageData = {
 
     trackingNumber: "ST-2026-6546",
 
-    packageName: "Денежная посылка",
+    packageName: "Денежная сумма в размере 300 000,00 евро, подлежащая передаче Олегу Артемину.",
 
-    weight: "9.6 кг",
+    weight: "8.1 кг",
 
     deliveryFee: "€320.00",
 
